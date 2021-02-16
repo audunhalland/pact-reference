@@ -274,7 +274,7 @@ fn handle_mock_request_error(result: Result<Response<Body>, InteractionError>) -
             };
             Ok(response.unwrap())
         }
-    }
+    };
 
     debug!("LOGL! handle_mock_request_error DONE");
 
