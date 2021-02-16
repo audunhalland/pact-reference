@@ -245,7 +245,11 @@ async fn handle_request(
 
     matches.lock().unwrap().push(match_result.clone());
 
-    match_result_to_hyper_response(&pact_request, match_result, mock_server)
+    let response = match_result_to_hyper_response(&pact_request, match_result, mock_server);
+
+    debug!("Created hyper response: {:?}", response);
+
+    response
 }
 
 // TODO: Should instead use some form of X-Pact headers
