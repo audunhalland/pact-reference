@@ -248,8 +248,11 @@ async fn handle_request(
     let response = match_result_to_hyper_response(&pact_request, match_result, mock_server);
 
     debug!("Created hyper response: {:?}", response);
+    debug!("Sending fake response...");
 
-    response
+    Ok(Response::builder()
+    .status(200)
+    .body(Body::empty()).unwrap())
 }
 
 // TODO: Should instead use some form of X-Pact headers
