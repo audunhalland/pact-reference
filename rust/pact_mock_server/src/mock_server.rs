@@ -221,6 +221,7 @@ impl MockServer {
 
   /// Mock server writes its pact out to the provided directory
   pub fn write_pact(&self, output_path: &Option<String>, overwrite: bool) -> io::Result<()> {
+    debug!("LOGL! write_pact");
     let pact_file_name = self.pact.default_file_name();
     let filename = match *output_path {
       Some(ref path) => {
@@ -267,5 +268,11 @@ impl Clone for MockServer {
       shutdown_tx: RefCell::new(None),
       config: self.config.clone()
     }
+  }
+}
+
+impl Drop for MockServer {
+  fn drop(&mut self) {
+    debug!("LOGL!!! DROP MOCKSERVER");
   }
 }
