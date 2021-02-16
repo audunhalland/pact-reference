@@ -166,6 +166,7 @@ impl MockServer {
 
   /// Send the shutdown signal to the server
   pub fn shutdown(&mut self) -> Result<(), String> {
+    debug!("LOGL! shutdown");
     let shutdown_future = &mut *self.shutdown_tx.borrow_mut();
     match shutdown_future.take() {
       Some(sender) => {
@@ -180,6 +181,7 @@ impl MockServer {
 
     /// Converts this mock server to a `Value` struct
     pub fn to_json(&self) -> serde_json::Value {
+      debug!("LOGL! to_json");
       json!({
         "id" : self.id.clone(),
         "port" : self.port.unwrap_or_default() as u64,
@@ -192,11 +194,13 @@ impl MockServer {
 
     /// Returns all collected matches
     pub fn matches(&self) -> Vec<MatchResult> {
+      debug!("LOGL! matches");
         self.matches.lock().unwrap().clone()
     }
 
     /// Returns all the mismatches that have occurred with this mock server
     pub fn mismatches(&self) -> Vec<MatchResult> {
+      debug!("LOGL! Getting mismatches");
         let matches = self.matches();
         let mismatches = matches.iter()
           .filter(|m| !m.matched() && !m.cors_preflight())

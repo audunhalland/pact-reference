@@ -254,7 +254,8 @@ async fn handle_request(
 
 // TODO: Should instead use some form of X-Pact headers
 fn handle_mock_request_error(result: Result<Response<Body>, InteractionError>) -> Result<Response<Body>, Error> {
-    match result {
+    debug!("LOGL! handle_mock_request_error");
+    let ret = match result {
         Ok(response) => Ok(response),
         Err(error) => {
             let response = match error {
@@ -274,6 +275,10 @@ fn handle_mock_request_error(result: Result<Response<Body>, InteractionError>) -
             Ok(response.unwrap())
         }
     }
+
+    debug!("LOGL! handle_mock_request_error DONE");
+
+    ret
 }
 
 // Create and bind the server, but do not start it.
